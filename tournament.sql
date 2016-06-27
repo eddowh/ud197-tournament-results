@@ -7,3 +7,18 @@
 -- these lines here.
 
 
+CREATE TABLE Players (
+    id   serial primary key,
+    name text
+);
+
+
+CREATE TABLE Matches (
+    id          serial PRIMARY KEY,
+    player_id   serial NOT NULL,
+    opponent_id serial NOT NULL,
+    winner_id   serial NOT NULL,
+    FOREIGN KEY (player_id)   REFERENCES Players(id),
+    FOREIGN KEY (opponent_id) REFERENCES Players(id),
+    FOREIGN KEY (winner_id)   REFERENCES Players(id)
+);
