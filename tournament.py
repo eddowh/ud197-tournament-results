@@ -120,4 +120,13 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-    pass
+    standings = playerStandings()
+    assert len(standings) % 2 == 0  # make sure it's even
+    pairings = []
+    for i in range(0, len(standings), 2):
+        player1, player2 = standings[i], standings[i + 1]
+        pairings.append((
+            player1[0], player1[1],
+            player2[0], player2[1]
+        ))
+    return pairings
