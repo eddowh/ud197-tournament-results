@@ -16,7 +16,7 @@ def deleteMatches():
     """Remove all the match records from the database."""
     db = connect()
     c = db.cursor()
-    c.execute("DELETE FROM Matches;")
+    c.execute("DELETE FROM matches;")
     db.commit()
     db.close()
 
@@ -25,7 +25,7 @@ def deletePlayers():
     """Remove all the player records from the database."""
     db = connect()
     c = db.cursor()
-    c.execute("DELETE FROM Players;")
+    c.execute("DELETE FROM players;")
     db.commit()
     db.close()
 
@@ -34,7 +34,7 @@ def countPlayers():
     """Returns the number of players currently registered."""
     db = connect()
     c = db.cursor()
-    c.execute("SELECT count(*) FROM Players;")
+    c.execute("SELECT count(*) FROM players;")
     player_count = c.fetchone()[0]
     db.close()
     return player_count
@@ -69,7 +69,13 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    pass
+    db = connect()
+    c = db.cursor()
+    # TODO
+    c.execute("SELECT * FROM players;")
+    results = c.fetchall()
+    db.close()
+    return results
 
 
 def reportMatch(winner, loser):
@@ -84,14 +90,14 @@ def reportMatch(winner, loser):
     c = db.cursor()
     c.execute(
         """
-        INSERT INTO Matches (player, opponent, result)
+        INSERT INTO matches (player, opponent, result)
                     VALUES (%s, %s, True);
         """,
         (winner, loser)
     )
     c.execute(
         """
-        INSERT INTO Matches (player, opponent, result)
+        INSERT INTO matches (player, opponent, result)
                     VALUES (%s, %s, False);
         """,
         (loser, winner)

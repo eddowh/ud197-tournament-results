@@ -7,21 +7,22 @@
 -- these lines here.
 
 
-DROP TABLE Matches;
-DROP TABLE Players;
+DROP TABLE matches;
 
+DROP TABLE players;
 
-CREATE TABLE Players (
-    id   serial primary key,
-    name text
-);
+CREATE TABLE players
+  (
+     id   SERIAL PRIMARY KEY,
+     NAME TEXT
+  );
 
-
-CREATE TABLE Matches (
-    id          serial  PRIMARY KEY,
-    player_id   serial  NOT NULL,
-    opponent_id serial  NOT NULL,
-    win         boolean NOT NULL,
-    FOREIGN KEY (player_id)   REFERENCES Players(id),
-    FOREIGN KEY (opponent_id) REFERENCES Players(id)
-);
+CREATE TABLE matches
+  (
+     id          SERIAL  PRIMARY KEY,
+     player_id   SERIAL  NOT NULL,
+     opponent_id SERIAL  NOT NULL,
+     win         BOOLEAN NOT NULL,
+     FOREIGN KEY (player_id)   REFERENCES players(id),
+     FOREIGN KEY (opponent_id) REFERENCES players(id)
+  );
