@@ -7,6 +7,10 @@
 -- these lines here.
 
 
+DROP TABLE Matches;
+DROP TABLE Players;
+
+
 CREATE TABLE Players (
     id   serial primary key,
     name text
@@ -14,11 +18,10 @@ CREATE TABLE Players (
 
 
 CREATE TABLE Matches (
-    id          serial PRIMARY KEY,
-    player_id   serial NOT NULL,
-    opponent_id serial NOT NULL,
-    winner_id   serial NOT NULL,
+    id          serial  PRIMARY KEY,
+    player_id   serial  NOT NULL,
+    opponent_id serial  NOT NULL,
+    win         boolean NOT NULL,
     FOREIGN KEY (player_id)   REFERENCES Players(id),
-    FOREIGN KEY (opponent_id) REFERENCES Players(id),
-    FOREIGN KEY (winner_id)   REFERENCES Players(id)
+    FOREIGN KEY (opponent_id) REFERENCES Players(id)
 );
