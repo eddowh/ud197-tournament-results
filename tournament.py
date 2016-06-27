@@ -71,8 +71,7 @@ def playerStandings():
     """
     db = connect()
     c = db.cursor()
-    # TODO
-    c.execute("SELECT * FROM players;")
+    c.execute("SELECT * FROM standings;")
     results = c.fetchall()
     db.close()
     return results
@@ -90,14 +89,14 @@ def reportMatch(winner, loser):
     c = db.cursor()
     c.execute(
         """
-        INSERT INTO matches (player, opponent, result)
+        INSERT INTO matches (player_id, opponent_id, win)
                     VALUES (%s, %s, True);
         """,
         (winner, loser)
     )
     c.execute(
         """
-        INSERT INTO matches (player, opponent, result)
+        INSERT INTO matches (player_id, opponent_id, win)
                     VALUES (%s, %s, False);
         """,
         (loser, winner)

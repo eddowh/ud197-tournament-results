@@ -6,6 +6,7 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
+DROP VIEW standings;
 
 DROP TABLE matches;
 
@@ -26,3 +27,15 @@ CREATE TABLE matches
      FOREIGN KEY (player_id)   REFERENCES players(id),
      FOREIGN KEY (opponent_id) REFERENCES players(id)
   );
+
+CREATE VIEW standings
+AS
+  SELECT players.id                 AS id,
+         players.name               AS name,
+         Count(Nullif(win, FALSE))  AS wins,
+         Count(matches.opponent_id) AS matches
+  FROM   players
+         left join matches
+                ON players.id = matches.player_id
+  GROUP  BY players.id
+  ORDER  BY wins DESC;
